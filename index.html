@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soccer Map</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- ESRI CSS -->
+  <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0beta2/esri/css/main.css">
+  <!-- app CSS -->
+  <link rel="stylesheet" href="app.css">
+
+  <script src="https://jsdev.arcgis.com/4.0beta2/"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+<header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-8">
+        <p class="title"><b>SoccerMap</b></p>
+      </div>
+      <div class="col-xs-4">
+        <ul class="nav nav-pills pull-right">
+          <li class="active" role="presentation"><a href="#2D" data-toggle="tab">2D<span class="hidden-xs"> View</span></a></li>
+          <li role="presentation"><a href="#3D" data-toggle="tab">3D<span class="hidden-xs"> View</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container-fluid">
+<div class="row">
+  <div class="col-xs-12 col-no-padding">
+    <div class="tab-content">
+      <div class="tab-pane active" id="2D">
+        <div id="view2D"></div>
+      </div>
+      <div class="tab-pane" id="3D">
+        <div id="view3D"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+  <!-- jQuery first, then Bootstrap JS. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

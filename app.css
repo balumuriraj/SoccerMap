@@ -1,0 +1,15 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+}
+header {
+  background: #333333;
+  color: #ffffff;
+}
+header .title {
+  font-size: 2em;
+  padding: 0.15em 0.5em;
+  margin: 0;
+}
