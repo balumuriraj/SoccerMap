@@ -1,0 +1,19 @@
+{
+  "name": "SoccerMap",
+  "version": "0.0.1",
+  "homepage": "https://github.com/balumuriraj/SoccerMap",
+  "authors": [
+    "MohanRaj Balumuri <balumuriraj@gmail.com>"
+  ],
+  "keywords": [
+    "soccer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

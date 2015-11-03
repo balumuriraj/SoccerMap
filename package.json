@@ -1,0 +1,23 @@
+{
+  "name": "soccermap",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balumuriraj/SoccerMap.git"
+  },
+  "author": "MohanRaj Balumuri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/balumuriraj/SoccerMap/issues"
+  },
+  "homepage": "https://github.com/balumuriraj/SoccerMap/index.html",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-less": "^3.0.3"
+  }
+}

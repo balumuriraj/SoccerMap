@@ -1,16 +1,47 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+
 html, body {
   padding: 0;
   margin: 0;
-  font-family: monospace;
+  font-family: 'Open Sans', sans-serif;
 }
 
 header {
-  background: #333333;
-  color: #ffffff;
+  background: #ffffff;
+  color: #333333;
 
   .title {
     font-size: 2em;
-    padding: 0.15em 0.5em;
+    padding: 0.2em 0.5em 0.4em 0.5em;
     margin: 0;
+  }
+  
+  .views {
+    list-style: none;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      display: inline-block;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 0.2em 0.25em 0.1em 0.25em;
+      
+      a {
+        text-decoration: none;
+        color: #333333;
+        opacity: 0.5;
+      }
+      
+      a:hover {
+        opacity: 1;
+      }
+    }
+    .active {
+      a {
+        opacity: 0.85;
+      }    
+    }
   }
 }
