@@ -4,12 +4,15 @@ require(
     "esri/views/MapView",
     "esri/views/SceneView",
 
+    "esri/Graphic",
+
     "esri/geometry/Extent",
     "esri/geometry/SpatialReference",
     "esri/geometry/support/webMercatorUtils",
     
     "esri/layers/ArcGISTiledLayer",
     "esri/layers/FeatureLayer",
+    "esri/layers/GraphicsLayer",
      
     "esri/renderers/UniqueValueRenderer", 
     
@@ -23,8 +26,9 @@ require(
     "dojo/domReady!"
   ], function (
     Map, MapView, SceneView,
+    Graphic,
     Extent, SpatialReference, webMercatorUtils,
-    ArcGISTiledLayer, FeatureLayer,
+    ArcGISTiledLayer, FeatureLayer, GraphicsLayer,
     UniqueValueRenderer,
     SimpleLineSymbol, SimpleFillSymbol,
     QueryTask, Query,
@@ -52,9 +56,7 @@ require(
     });
 
     /**** 2D ****/
-     view2D.on("click", function(){
-       console.log(view2D.extent);
-     });
+
     
     /**** Layer ****/
     /*var baselyr = new ArcGISTiledLayer({
@@ -64,7 +66,8 @@ require(
     map1.add(baselyr);*/
 
     var url = "http://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/World_Countries_(Generalized)/FeatureServer/0";
-    
+    var features = null;
+
     var lyr = new FeatureLayer({
       url: url,
       opacity: 0.95
@@ -72,16 +75,25 @@ require(
     
     map1.add(lyr);
 
+    var graphicsLayer = new GraphicsLayer();
+    map1.add(graphicsLayer);
+
     var queryTask = new QueryTask({
       url: url
     });
     var query = new Query();
     query.returnGeometry = true;
     query.outFields = ["*"];
+    query.where = "Country='United States' " +
+      "Or Country='United Kingdom' " +
+      "Or Country='Spain' " +
+      "Or Country='Germany' " +
+      "Or Country='France'";
 
     //When resolved, returns features and graphics that satisfy the query.
     queryTask.execute(query).then(function(results){
-      console.log(results.features);
+      console.log(results);
+      features = results.features;
     }, function (err) {
       console.log(err);
     });
@@ -100,7 +112,7 @@ require(
       
       lyr.then(function() {
         var defaultSymbol = new SimpleFillSymbol({
-
+          color: "#34495e"
         });
   
         var renderer = new UniqueValueRenderer(defaultSymbol, "Country");
@@ -108,25 +120,55 @@ require(
         console.log(lyr);
     
         //add symbol for each possible value
-        renderer.addValue("United States", new SimpleFillSymbol({
-          color: "#2ecc71"
-        }));
+        renderer.addValue("United States", new SimpleFillSymbol({color: "#95a5a6"}));
+        renderer.addValue("United Kingdom", new SimpleFillSymbol({color: "#3498db"}));
+        renderer.addValue("Spain", new SimpleFillSymbol({color: "#9b59b6"}));
+        renderer.addValue("Germany", new SimpleFillSymbol({color: "#e74c3c"}));
+        renderer.addValue("France", new SimpleFillSymbol({color: "#f1c40f"}));
         
         lyr.renderer = renderer;
 
         view2D.animateTo(init2DExtent);
       });
+
+      var ele = document.getElementById("view2D");
+      on(ele, "mousemove", showCoordinates);
+
+      function showCoordinates(evt) {
+        var point = view2D.toMap(evt.layerX, evt.layerY);
+        graphicsLayer.clear();
+        ele.style.cursor = "auto";
+
+        for(var i=0; i<features.length; i++){
+          var geometry = features[i].geometry;
+          if(geometry.contains(point)){
+            ele.style.cursor = "pointer";
+            var sym = new SimpleFillSymbol({
+              color: "#ecf0f1"
+            });
+            var graphic = new Graphic({
+              geometry: geometry,
+              symbol: sym
+            });
+            graphicsLayer.add(graphic);
+          }
+        }
+      }
+
+      view2D.on("click", function(evt){
+        console.log(evt.mapPoint);
+
+        for(var i=0; i<features.length; i++){
+          var geometry = features[i].geometry;
+
+          if(geometry.contains(evt.mapPoint)){
+            view2D.animateTo(geometry.extent);
+          }
+        }
+      });
     });
 
-    var ele = document.getElementById("view2D");
 
-    on(ele, "mousemove", showCoordinates);
-
-    function showCoordinates(evt) {
-      var point = view2D.toMap(evt.screenX, evt.screenY);
-      var currentExtent = view2D.extent;
-      console.log(currentExtent.contains(point));
-    }
 
     /**** 3D ****/
     
