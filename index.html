@@ -6,6 +6,8 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <!-- ESRI CSS -->
   <link rel="stylesheet" href="https://jsdev.arcgis.com/4.0beta2/esri/css/main.css">
   <!-- app CSS -->
@@ -19,7 +21,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-8">
-        <p class="title"><b>SoccerMap</b></p>
+        <p class="title"><b>Map</b></p>
       </div>
       <div class="col-xs-4">
         <ul class="views">
@@ -38,23 +40,90 @@
     </div>
   </div>
 </header>
+
 <div class="map-container">
-<div class="row">
-  <div class="col-xs-12 col-no-padding">
-    <div class="tab-content">
-      <div class="tab-pane active" id="2D">
-        <div id="view2D"></div>
-      </div>
-      <div class="tab-pane" id="3D">
-        <div id="view3D"></div>
-      </div>
+  <div class="tab-content">
+    <div class="tab-pane active" id="2D">
+      <div id="view2D"></div>
+    </div>
+    <div class="tab-pane" id="3D">
+      <div id="view3D"></div>
     </div>
   </div>
 </div>
+
+<input type="checkbox" name="toggleLeagues" id="toggleLeagues"/>
+<label for="toggleLeagues"> show leagues <i class="fa fa-angle-up"></i></label>
+
+<div id="leaguesContainer">
+  <div class="leagues-menu container-fluid">
+    <div class="row">
+      <div class="col-xs-10">
+        <ul>
+          <li class="active" role="presentation">
+            <a href="#leagues" data-toggle="tab">
+              leagues
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#options" data-toggle="tab">
+              options
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-xs-2 close-block">
+        <label class="close-container" for="toggleLeagues"> <i class="fa fa-angle-down"></i></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="leagues">
+      <ul>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+        <li>
+          <img src="http://placehold.it/350x150">
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-pane" id="options">
+      <h1>test</h1>
+    </div>
+  </div>
 </div>
 
-  <!-- jQuery first, then Bootstrap JS. -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<span id="info" style="position:absolute; right:15px; bottom:5px; color:#000; z-index:50;"></span>
+
+<!-- jQuery first, then Bootstrap JS. -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

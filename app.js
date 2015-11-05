@@ -6,6 +6,7 @@ require(
 
     "esri/geometry/Extent",
     "esri/geometry/SpatialReference",
+    "esri/geometry/support/webMercatorUtils",
     
     "esri/layers/ArcGISTiledLayer",
     "esri/layers/FeatureLayer",
@@ -14,22 +15,25 @@ require(
     
     "esri/symbols/SimpleLineSymbol", 
     "esri/symbols/SimpleFillSymbol",
-    
-    "esri/Color",
-     
+
+    "esri/tasks/QueryTask",
+    "esri/tasks/support/Query",
+
+    "dojo/on",
     "dojo/domReady!"
   ], function (
     Map, MapView, SceneView,
-    Extent, SpatialReference,
+    Extent, SpatialReference, webMercatorUtils,
     ArcGISTiledLayer, FeatureLayer,
     UniqueValueRenderer,
     SimpleLineSymbol, SimpleFillSymbol,
-    Color
+    QueryTask, Query,
+    on
   ) {
 
     /**** Maps ****/
     var map1 = new Map({
-      //basemap: "satellite"
+      basemap: "topo"
     });
 
     var map2 = new Map({
@@ -48,23 +52,39 @@ require(
     });
 
     /**** 2D ****/
-    // view2D.on("click", function(){
-    //   console.log(view2D.extent);
-    // });
+     view2D.on("click", function(){
+       console.log(view2D.extent);
+     });
     
     /**** Layer ****/
-    var baselyr = new ArcGISTiledLayer({
-      url: "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer"
+    /*var baselyr = new ArcGISTiledLayer({
+      url: "http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"
     });
-    
-    map1.add(baselyr);
+
+    map1.add(baselyr);*/
+
+    var url = "http://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/World_Countries_(Generalized)/FeatureServer/0";
     
     var lyr = new FeatureLayer({
-      url: "http://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/World_Countries_(Generalized)/FeatureServer/0",
+      url: url,
       opacity: 0.95
     });
     
     map1.add(lyr);
+
+    var queryTask = new QueryTask({
+      url: url
+    });
+    var query = new Query();
+    query.returnGeometry = true;
+    query.outFields = ["*"];
+
+    //When resolved, returns features and graphics that satisfy the query.
+    queryTask.execute(query).then(function(results){
+      console.log(results.features);
+    }, function (err) {
+      console.log(err);
+    });
 
     var init2DExtent = new Extent({
       xmax: 19407422.51677575,
@@ -80,7 +100,7 @@ require(
       
       lyr.then(function() {
         var defaultSymbol = new SimpleFillSymbol({
-          color: "#2ecc71"
+
         });
   
         var renderer = new UniqueValueRenderer(defaultSymbol, "Country");
@@ -88,14 +108,25 @@ require(
         console.log(lyr);
     
         //add symbol for each possible value
-        //renderer.addValue("Pacific", new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])));
+        renderer.addValue("United States", new SimpleFillSymbol({
+          color: "#2ecc71"
+        }));
         
         lyr.renderer = renderer;
-        
+
         view2D.animateTo(init2DExtent);
-        
       });
     });
+
+    var ele = document.getElementById("view2D");
+
+    on(ele, "mousemove", showCoordinates);
+
+    function showCoordinates(evt) {
+      var point = view2D.toMap(evt.screenX, evt.screenY);
+      var currentExtent = view2D.extent;
+      console.log(currentExtent.contains(point));
+    }
 
     /**** 3D ****/
     

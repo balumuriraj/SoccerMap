@@ -37,3 +37,98 @@ header .views li a:hover {
 header .views .active a {
   opacity: 0.85;
 }
+#leaguesContainer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #ffffff;
+  display: none;
+}
+#leaguesContainer .leagues-menu {
+  background: #ecf0f1;
+}
+#leaguesContainer .leagues-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+#leaguesContainer .leagues-menu ul li {
+  display: inline-block;
+  padding: 1em;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+#leaguesContainer .leagues-menu ul li a {
+  text-decoration: none;
+  color: #7f8c8d;
+}
+#leaguesContainer .leagues-menu ul .active {
+  background: #ffffff;
+}
+#leaguesContainer .leagues-menu .close-block {
+  text-align: right;
+  color: #7f8c8d;
+}
+#leaguesContainer .leagues-menu .close-block .close-container {
+  text-align: right;
+  margin: 0.5em 0;
+  padding: 0;
+}
+#leaguesContainer .leagues-menu .close-block .close-container i {
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  background: #ffffff;
+  font-size: 1.25em;
+}
+#leaguesContainer #leagues {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 1em 0;
+}
+#leaguesContainer #leagues ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#leaguesContainer #leagues ul li {
+  display: inline-block;
+  padding: 0 1em;
+}
+#toggleLeagues {
+  position: absolute;
+  appearance: none;
+  cursor: pointer;
+  left: -100%;
+  top: -100%;
+}
+#toggleLeagues + label {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  padding: 1em 2em;
+  background: #f5f5f5;
+  font-size: 1em;
+  font-weight: bolder;
+  color: #999999;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  transition: all 500ms ease;
+}
+#toggleLeagues + label i {
+  margin-left: 0.25em;
+}
+#toggleLeagues:checked ~ #leaguesContainer {
+  display: block;
+}
+::-webkit-scrollbar {
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: none;
+}
+::-webkit-scrollbar-thumb {
+  background: #bdc3c7;
+}
